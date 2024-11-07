@@ -1,6 +1,5 @@
 from django.db import models
 
-
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -46,11 +45,7 @@ class Lesson(models.Model):
     )
 
     course = models.ForeignKey(
-        Course,
-        on_delete=models.SET_NULL,
-        verbose_name="Курс",
-        help_text="Введите курс",
-        null=True,
+        Course, on_delete=models.SET_NULL, **NULLABLE, related_name="lesson"
     )
 
     def __str__(self):
