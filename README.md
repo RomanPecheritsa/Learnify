@@ -89,5 +89,4 @@ This project is an online Learning Management System (LMS) designed to facilitat
 | /users/delete/{id}/     | DELETE    | Удалить пользователя                          |
 | /users/login/           | POST      | Получить токен авторизации                    |
 | /users/token/refresh/   | POST      | Обновить токен авторизации                    |
-| /users/payment/         | GET       | Получить список всех платежей                 |  
-| /users/payment/         | POST      | Создать новый платеж                          |  
+| /users/payment/         | GET       | Получить список всех платежей                 |
