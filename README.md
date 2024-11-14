@@ -61,24 +61,33 @@ This project is an online Learning Management System (LMS) designed to facilitat
     docker system prune -a
     ```
     
-## API Endpoints
-- После запуска контейнера появятся два курса, восемь уроков (шесть из которых привязаны к курсам, а два — нет), три пользователя и четыре платежа, связанные с курсами и уроками
+## API Endpoints & Additional information
+**После запуска контейнера будут созданы:**
+- Два курса (Один привязан к пользователю), восемь уроков (шесть из которых привязаны к курсам, два привязаны к пользователю), 3 платежа
+- Два пользователя:
+1. email: test@test.com, password: 12345678
+2. email: moderator@test.com, password: 12345678 (входит в группу moderator)
 
-| **Маршрут**        | **Метод** | **Описание**                                           |  
-|--------------------|-----------|--------------------------------------------------------|  
-| /learning/courses/ | GET       | Получить список всех курсов                           |  
-| /learning/courses/      | POST      | Создать новый курс                                     |  
-| /learning/courses/{id}/ | GET       | Получить информацию о конкретном курсе                |  
-| /learning/courses/{id}/ | PUT       | Обновить информацию о курсе                           |  
-| /learning/courses/{id}/ | DELETE    | Удалить курс                                          |  
-| /learning/lessons/      | GET       | Получить список всех уроков                           |  
-| /learning/lessons/      | POST      | Создать новый урок                                     |  
-| /learning/lessons/{id}/ | GET       | Получить информацию о конкретном уроке                |  
-| /learning/lessons/{id}/ | PUT       | Обновить информацию об уроке                          |  
-| /learning/lessons/{id}/ | DELETE    | Удалить урок                                          |  
-| /users/            | GET       | Получить список всех пользователей                    |  
-| /users/{id}/       | GET       | Получить профиль пользователя                         |  
-| /users/{id}/       | PUT       | Обновить информацию о пользователе                    |  
-| /users/{id}/       | DELETE    | Удалить пользователя                                  |  
-| /users/payment/    | GET       | Получить список всех платежей                         |  
-| /users/payment/    | POST      | Создать новый платеж                                  |  
+
+
+| **Маршрут**             | **Метод** | **Описание**                                  |  
+|-------------------------|-----------|-----------------------------------------------|  
+| /learning/courses/      | GET       | Получить список всех курсов                   |  
+| /learning/courses/      | POST      | Создать новый курс                            |  
+| /learning/courses/{id}/ | GET       | Получить информацию о конкретном курсе        |  
+| /learning/courses/{id}/ | PUT PUTCH | Обновить информацию о курсе                   |  
+| /learning/courses/{id}/ | DELETE    | Удалить курс                                  |  
+| /learning/lessons/      | GET       | Получить список всех уроков                   |  
+| /learning/lessons/      | POST      | Создать новый урок                            |  
+| /learning/lessons/{id}/ | GET       | Получить информацию о конкретном уроке        |  
+| /learning/lessons/{id}/ | PUT PUTCH | Обновить информацию об уроке                  |  
+| /learning/lessons/{id}/ | DELETE    | Удалить урок                                  |  
+| /users/register/        | POST      | Создать пользователя                          |
+| /users/                 | GET       | Получить список пользователей                 |
+| /users/{id}/            | GET       | Получить информацию о конкретном пользователе |
+| /users/edit/{id}/       | PUT PUTCH | Обновить информацию о пользователе            |
+| /users/delete/{id}/     | DELETE    | Удалить пользователя                          |
+| /users/login/           | POST      | Получить токен авторизации                    |
+| /users/token/refresh/   | POST      | Обновить токен авторизации                    |
+| /users/payment/         | GET       | Получить список всех платежей                 |  
+| /users/payment/         | POST      | Создать новый платеж                          |  
