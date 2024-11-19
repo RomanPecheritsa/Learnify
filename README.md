@@ -43,9 +43,15 @@ This project is an online Learning Management System (LMS) designed to facilitat
 
 ### 4. Testing the Application
 
-- **Check API Endpoints**
-  - Use Postman or another API client to verify the functionality of the API endpoints.
+To run the tests and check the test coverage, follow these steps:
 
+**Run the tests with coverage**:
+   This command runs the Django tests and collects coverage data.
+
+   ```bash
+   docker exec -it django coverage run --source='.' manage.py test
+   docker exec -it django coverage report
+   ```
 
 ### 5. Stopping and Cleaning Up
 
@@ -65,10 +71,18 @@ This project is an online Learning Management System (LMS) designed to facilitat
 **После запуска контейнера будут созданы:**
 - Два курса (Один привязан к пользователю), восемь уроков (шесть из которых привязаны к курсам, два привязаны к пользователю), 3 платежа
 - Два пользователя:
-1. email: test@test.com, password: 12345678
-2. email: moderator@test.com, password: 12345678 (входит в группу moderator)
-
-
+```json
+{
+  "email": "test@test.com",
+  "password": "12345678"
+}
+```
+```json
+{
+  "email": "moderator@test.com",
+  "password": "12345678"
+}
+```
 
 | **Маршрут**             | **Метод** | **Описание**                                  |  
 |-------------------------|-----------|-----------------------------------------------|  
@@ -90,3 +104,4 @@ This project is an online Learning Management System (LMS) designed to facilitat
 | /users/login/           | POST      | Получить токен авторизации                    |
 | /users/token/refresh/   | POST      | Обновить токен авторизации                    |
 | /users/payment/         | GET       | Получить список всех платежей                 |
+| /users/subs/            | POST      | Установить / Удалить подписку                 |
