@@ -21,7 +21,9 @@ services:
       sh -c "
       python3 manage.py migrate &&
       python3 manage.py loaddata data.json &&
-      python3 manage.py runserver 0.0.0.0:8000
+      python3 manage.py runserver 0.0.0.0:8000 &&
+      coverage run --source='.' manage.py test &&
+      coverage report
       "
     ports:
       - "${API_PORT:-8000}:8000"
