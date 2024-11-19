@@ -43,9 +43,15 @@ This project is an online Learning Management System (LMS) designed to facilitat
 
 ### 4. Testing the Application
 
-- **Check API Endpoints**
-  - Use Postman or another API client to verify the functionality of the API endpoints.
+To run the tests and check the test coverage, follow these steps:
 
+**Run the tests with coverage**:
+   This command runs the Django tests and collects coverage data.
+
+   ```bash
+   docker exec -it django coverage run --source='.' manage.py test
+   docker exec -it django coverage report
+   ```
 
 ### 5. Stopping and Cleaning Up
 
