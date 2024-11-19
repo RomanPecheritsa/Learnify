@@ -19,7 +19,7 @@ class User(AbstractUser):
         upload_to="users/avatars/",
         **NULLABLE,
         verbose_name="Аватар",
-        help_text="Загрузите аватар"
+        help_text="Загрузите аватар",
     )
 
     USERNAME_FIELD = "email"
@@ -55,3 +55,19 @@ class Payment(models.Model):
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="subscriptions"
+    )
+    course = models.ForeignKey(
+        "lms.Course", on_delete=models.CASCADE, related_name="subscriptions"
+    )
+
+    def __str__(self):
+        return f"{self.user} signed {self.user}"
+
+    class Meta:
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
