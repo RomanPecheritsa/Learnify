@@ -1,7 +1,5 @@
 from rest_framework.exceptions import ValidationError
 
-allowed_names = ["youtube.com", "youtu.be"]
-
 
 def validate_youtube_only(value):
     allowed_names = ["youtube.com", "youtu.be"]
