@@ -14,6 +14,8 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        if not user.is_authenticated:
+            return Course.objects.none()
         if user.groups.filter(name="moderator").exists():
             return Course.objects.all()
         return Course.objects.filter(owner=user)
@@ -39,6 +41,8 @@ class LessonListCreateAPIView(ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
+        if not user.is_authenticated:
+            return Lesson.objects.none()
         if user.groups.filter(name="moderator").exists():
             return Lesson.objects.all()
         return Lesson.objects.filter(owner=user)
@@ -59,6 +63,8 @@ class LessonRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         user = self.request.user
+        if not user.is_authenticated:
+            return Lesson.objects.none()
         if user.groups.filter(name="moderator").exists():
             return Lesson.objects.all()
         return Lesson.objects.filter(owner=user)
