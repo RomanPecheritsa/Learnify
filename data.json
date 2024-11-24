@@ -20,6 +20,16 @@
     }
   },
   {
+    "model": "lms.course",
+    "pk": 3,
+    "fields": {
+      "title": "Golang + JS разработчик",
+      "preview": "",
+      "description": "Курс включает уроки по разработке на языке Golang, Java",
+      "owner": null
+    }
+  },
+  {
     "model": "lms.lesson",
     "pk": 1,
     "fields": {
@@ -99,8 +109,8 @@
       "description": "Урок по фреймворку Revel на языке Golang",
       "preview": "",
       "link_to_video": "https://revel.github.io/",
-      "course": null,
-      "owner": 2
+      "course": 3,
+      "owner": null
     }
   },
   {
@@ -111,8 +121,8 @@
       "description": "Урок по фреймворку ReactJS на языке JavaScript",
       "preview": "",
       "link_to_video": "https://react.dev/",
-      "course": null,
-      "owner": 2
+      "course": 3,
+      "owner": null
     }
   },
   {
@@ -163,39 +173,6 @@
     "fields": {
       "name": "moderator",
       "permissions": []
-    }
-  },
-  {
-    "model": "users.payment",
-    "pk": 1,
-    "fields": {
-      "user": 2,
-      "lesson": 7,
-      "course": null,
-      "pay_day": "2024-11-04",
-      "pay_method": "cash"
-    }
-  },
-  {
-    "model": "users.payment",
-    "pk": 2,
-    "fields": {
-      "user": 2,
-      "lesson": 8,
-      "course": null,
-      "pay_day": "2024-11-05",
-      "pay_method": "cash"
-    }
-  },
-  {
-    "model": "users.payment",
-    "pk": 3,
-    "fields": {
-      "user": 2,
-      "lesson": null,
-      "course": 1,
-      "pay_day": "2024-11-06",
-      "pay_method": "transfer"
     }
   }
 ]
