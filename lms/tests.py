@@ -121,14 +121,18 @@ class CourseAndLessonTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["message"], "Подписка добавлена")
 
-        subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
+        subscription = Subscription.objects.filter(
+            user=self.owner_user, course=self.course
+        )
         self.assertTrue(subscription.exists())
 
         response = self.client.post("/users/subs/", data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["message"], "Подписка удалена")
 
-        subscription = Subscription.objects.filter(user=self.owner_user, course=self.course)
+        subscription = Subscription.objects.filter(
+            user=self.owner_user, course=self.course
+        )
         self.assertFalse(subscription.exists())
 
 

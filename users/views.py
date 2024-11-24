@@ -1,8 +1,7 @@
 from django.shortcuts import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, status
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.filters import OrderingFilter
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -10,6 +9,8 @@ from lms.models import Course
 from users.models import Payment, Subscription, User
 from users.serializers import (PaymentSerializer, SubscriptionSerializer,
                                UserHiddenSerializer, UserSerializer)
+from users.services import (convert_rub_to_usd, create_stripe_price,
+                            create_stripe_session)
 
 
 class UserCreateAPIView(generics.CreateAPIView):
@@ -48,6 +49,10 @@ class UserRetrieveAPIView(generics.RetrieveAPIView):
     serializer_class = UserHiddenSerializer
 
     def get_serializer_class(self):
+        if getattr(self, "swagger_fake_view", False):
+            return UserSerializer
+
+        # Обычная логика выполнения
         if self.get_object() == self.request.user:
             return UserSerializer
         return UserHiddenSerializer
@@ -85,9 +90,22 @@ class SubscriptionAPIView(APIView):
         return Response({"message": message}, status=status.HTTP_200_OK)
 
 
-class PaymentListAPIView(generics.ListAPIView):
-    queryset = Payment.objects.all()
+class PaymentCreateAPIView(CreateAPIView):
     serializer_class = PaymentSerializer
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ("pay_day",)
-    filterset_fields = ("course", "lesson", "pay_method")
+    queryset = Payment.objects.all()
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+
+        amount_in_usd = convert_rub_to_usd(payment.amount)
+
+        course = Course.objects.get(id=payment.course.id)
+        name = course.title
+
+        price = create_stripe_price(amount_in_usd, name)
+
+        session_id, payment_link = create_stripe_session(price)
+
+        payment.session_id = session_id
+        payment.link = payment_link
+        payment.save()

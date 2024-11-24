@@ -67,7 +67,11 @@ To run the tests and check the test coverage, follow these steps:
     docker system prune -a
     ```
     
-## API Endpoints & Additional information
+## Documentation & Additional information
+**The full API documentation is available at:**
+
+[http://127.0.0.1:8000/swagger/](http://127.0.0.1:8000/swagger/)
+
 **После запуска контейнера будут созданы:**
 - Два курса (Один привязан к пользователю), восемь уроков (шесть из которых привязаны к курсам, два привязаны к пользователю), 3 платежа
 - Два пользователя:
@@ -83,25 +87,3 @@ To run the tests and check the test coverage, follow these steps:
   "password": "12345678"
 }
 ```
-
-| **Маршрут**             | **Метод** | **Описание**                                  |  
-|-------------------------|-----------|-----------------------------------------------|  
-| /learning/courses/      | GET       | Получить список всех курсов                   |  
-| /learning/courses/      | POST      | Создать новый курс                            |  
-| /learning/courses/{id}/ | GET       | Получить информацию о конкретном курсе        |  
-| /learning/courses/{id}/ | PUT PUTCH | Обновить информацию о курсе                   |  
-| /learning/courses/{id}/ | DELETE    | Удалить курс                                  |  
-| /learning/lessons/      | GET       | Получить список всех уроков                   |  
-| /learning/lessons/      | POST      | Создать новый урок                            |  
-| /learning/lessons/{id}/ | GET       | Получить информацию о конкретном уроке        |  
-| /learning/lessons/{id}/ | PUT PUTCH | Обновить информацию об уроке                  |  
-| /learning/lessons/{id}/ | DELETE    | Удалить урок                                  |  
-| /users/register/        | POST      | Создать пользователя                          |
-| /users/                 | GET       | Получить список пользователей                 |
-| /users/{id}/            | GET       | Получить информацию о конкретном пользователе |
-| /users/edit/{id}/       | PUT PUTCH | Обновить информацию о пользователе            |
-| /users/delete/{id}/     | DELETE    | Удалить пользователя                          |
-| /users/login/           | POST      | Получить токен авторизации                    |
-| /users/token/refresh/   | POST      | Обновить токен авторизации                    |
-| /users/payment/         | GET       | Получить список всех платежей                 |
-| /users/subs/            | POST      | Установить / Удалить подписку                 |
