@@ -22,13 +22,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "rest_framework",
     "drf_spectacular",
     "django_filters",
     "rest_framework_simplejwt",
-    'django_celery_beat',
-
+    "django_celery_beat",
     "users",
     "lms",
 ]
@@ -149,10 +147,10 @@ SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
 CELERY_BEAT_SCHEDULE = {
-    'deactivate-inactive-users-every-minute': {
-        'task': 'users.tasks.deactivate_inactive_users',
-        'schedule': crontab(minute='*/1'),
+    "deactivate-inactive-users-every-minute": {
+        "task": "users.tasks.deactivate_inactive_users",
+        "schedule": crontab(minute="*/1"),
     },
 }
 
-CELERY_BEAT_SCHEDULE_FILENAME = 'celerybeat-schedule'
+CELERY_BEAT_SCHEDULE_FILENAME = "celerybeat-schedule"
