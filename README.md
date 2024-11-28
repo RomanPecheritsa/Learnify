@@ -53,7 +53,22 @@ To run the tests and check the test coverage, follow these steps:
    docker exec -it django coverage report
    ```
 
-### 5. Stopping and Cleaning Up
+### 5. Celery Worker & Celery Beat Start
+
+To run Celery worker and Celery Beat in your Django Docker container, follow these steps:
+
+**Access the Django container:**:
+
+   ```bash
+  docker exec -it django sh
+   ```
+**Start the Celery Worker and:**:
+   ```bash
+  celery -A learnify worker --loglevel=info
+  celery -A learnify beat --loglevel=info
+   ```
+
+### 6. Stopping and Cleaning Up
 
 - **Stop Running Containers**
   - To stop the running containers, use:
@@ -74,7 +89,7 @@ To run the tests and check the test coverage, follow these steps:
 
 **После запуска контейнера будут созданы:**
 - Три курса, восемь уроков 
-- Два пользователя:
+- Три пользователя:
 ```json
 {
   "email": "test@test.com",
@@ -83,7 +98,13 @@ To run the tests and check the test coverage, follow these steps:
 ```
 ```json
 {
-  "email": "moderator@test.com",
+  "email": "moderator@test.com", <- moderator
+  "password": "12345678"
+}
+```
+```json
+{
+  "email": "admin@test.com", <- superuser
   "password": "12345678"
 }
 ```

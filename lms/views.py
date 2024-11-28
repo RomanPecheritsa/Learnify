@@ -5,6 +5,8 @@ from rest_framework.generics import (ListCreateAPIView,
 from lms.models import Course, Lesson
 from lms.paginations import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer
+from lms.tasks import send_course_update_email
+from users.models import Subscription
 from users.permissions import IsModerator, IsOwner
 
 
@@ -19,6 +21,15 @@ class CourseViewSet(viewsets.ModelViewSet):
         if user.groups.filter(name="moderator").exists():
             return Course.objects.all()
         return Course.objects.filter(owner=user)
+
+    def perform_update(self, serializer):
+        course = serializer.save()
+        subscribers = Subscription.objects.filter(course=course).values_list(
+            "user__email", flat=True
+        )
+        user_emails = list(subscribers)
+
+        send_course_update_email.delay(course.id, course.title, user_emails)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

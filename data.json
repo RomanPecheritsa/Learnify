@@ -151,8 +151,27 @@
     "model": "users.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$870000$jVL9DdDIoogGbiowaGKtpl$jO51FpHDJ+jdfE5SoygrCpghNQ3wplvOsh+lLEaxLHk=",
+      "password": "pbkdf2_sha256$870000$BgpyUAZBqNYXfF8D94RYiL$u7idUYEtf9G/aWlFrlcGUJRnMbqvAm9uevMpXWZ734U=",
       "last_login": null,
+      "is_superuser": true,
+      "first_name": "I AM",
+      "last_name": "SUPERUSER",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-11-12T16:19:49.337Z",
+      "email": "admin@test.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$jVL9DdDIoogGbiowaGKtpl$jO51FpHDJ+jdfE5SoygrCpghNQ3wplvOsh+lLEaxLHk=",
+      "last_login": "2024-09-27T12:00:00Z",
       "is_superuser": false,
       "first_name": "I AM",
       "last_name": "SIMPLE USER",
