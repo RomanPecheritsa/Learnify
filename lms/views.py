@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.generics import (ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
-from lms.tasks import send_course_update_email
+
 from lms.models import Course, Lesson
 from lms.paginations import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer
+from lms.tasks import send_course_update_email
 from users.models import Subscription
 from users.permissions import IsModerator, IsOwner
 
@@ -24,7 +25,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         course = serializer.save()
         subscribers = Subscription.objects.filter(course=course).values_list(
-            'user__email', flat=True
+            "user__email", flat=True
         )
         user_emails = list(subscribers)
 
