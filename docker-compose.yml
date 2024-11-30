@@ -1,16 +1,18 @@
+version: '3.8'
+
 services:
   postgres:
-      image: postgres:16.3-alpine
-      container_name: postgres
-      restart: unless-stopped
-      environment:
-        POSTGRES_DB: ${DB_NAME}
-        POSTGRES_USER: ${DB_USER}
-        POSTGRES_PASSWORD: ${DB_PASSWORD}
-      ports:
-        - "${DB_PORT}:5432"
-      volumes:
-        - postgres_data:/var/lib/postgresql/data
+    image: postgres:16.3-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   django:
     build:
@@ -45,6 +47,36 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+
+  celery:
+    container_name: celery
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A learnify worker --loglevel=info
+    depends_on:
+      - redis
+      - django
+    volumes:
+      - ./:/app/
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+
+  celery-beat:
+    container_name: celery-beat
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A learnify beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    depends_on:
+      - redis
+      - django
+    volumes:
+      - ./:/app/
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
 volumes:
   postgres_data:
