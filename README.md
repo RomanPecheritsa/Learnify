@@ -71,25 +71,3 @@ To run the tests and check the test coverage, follow these steps:
 **The full API documentation is available at:**
 
 [http://127.0.0.1:8000/swagger/](http://127.0.0.1:8000/swagger/)
-
-**После запуска контейнера будут созданы:**
-- Три курса, восемь уроков 
-- Три пользователя:
-```json
-{
-  "email": "test@test.com",
-  "password": "12345678"
-}
-```
-```json
-{
-  "email": "moderator@test.com", <- moderator
-  "password": "12345678"
-}
-```
-```json
-{
-  "email": "admin@test.com", <- superuser
-  "password": "12345678"
-}
-```
